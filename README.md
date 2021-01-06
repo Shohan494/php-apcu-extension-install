@@ -1,5 +1,7 @@
 # php-apcu-extension-install
 
+## Windows
+
  Install APCu on Windows
 Assumptions
 -I assume that you know what is APC - Alternative PHP cache 
@@ -28,5 +30,38 @@ This are recommended configurations located in INSTALL file from the php_apcu ar
 7. Go to http://localhost/phpinfo.php and check if apcu configuration table appears and apcu is enabled
 8. If you also want to use apcu for PHP CLI then you only need to add in C:\wamp\bin\php\php5.5.12\bin\php.ini the config lines you added at step 5 in apache's php.ini.
 
-The end!
-Now you should be ready to start developing faster applications! I hope this helped everyone out there who did not find a tutorial on how to install APCu for windows. I also encourage you to leave me some feedback!
+## Linux
+
+Known issues
+
+There are few known issues, some partially related to the project itself (to be solved at some point).
+Php xml extension#
+note
+
+This might happen when trying to install packages from composer
+
+    Follow this guide
+        or simply call this commands:
+            sudo apt-get install php-xml
+            sudo service apache2 restart
+
+Php Apcu extension#
+note
+
+This might happen when trying to rebuild the cache via ache:clear and cache:warmup
+
+    Call this commands:
+
+    sudo apt install php-apcu,
+    sudo nano /etc/php/7.4/mods-available/apcu.ini
+
+Now this should be the content of the apcu.ini, and if it's not then add it to the file:
+```
+extension=apcu.so
+apc.enabled=1
+apc.write_lock=1
+apc.shm_size=100M
+apc.slam_defense=0apc.enable_cli=1
+
+    now call sudo service apache2 restart
+```
